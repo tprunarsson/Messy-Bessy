@@ -1,2 +1,3 @@
-# examtimetable
-Examination timetabling
+# Bessy Beta
+Próftöfluröðun fyrir haustið 2016
+
