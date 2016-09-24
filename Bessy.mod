@@ -3,6 +3,8 @@
 # Last modified by aos at 15:03 20/9/2016
 # Last modified by tpr at 13:55 23/9/2016
 
+# TODO:
+
 #-----------------------------------PARAMETERS AND SETS----------------------------------------#
 #number of exam days
 param n:= 11;
