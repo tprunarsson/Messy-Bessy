@@ -1,11 +1,10 @@
-# Bessy Beta
-Próftöfluröðun fyrir haustið 2016
+# Bessy - Beta 0.0.1 próftöfluröðun
 
 Bessy.mod er AMPL líkan notað fyrir röðun
-forsendur.dat eru séróskir
+forsendur.dat eru séróskir deilda...
 
 
-Til að keyra:
+# Fasi 1
 
 sed -i 's/param phase := 0;/param phase := 1;/g' Bessy.mod
 
@@ -17,12 +16,14 @@ cat Bessy1.sol | grep Slot | grep -v ') 0' > Split.txt
 
 python3 ChangeToRightFormatForPhases.py
 
-# May now want to tune the tolerance
+# Stilla breytur fyrir fasa 2
 echo "param tolerancesame := 5;" > params.dat
+
 echo "param tolerance := 15;" >> params.dat
+
 echo "" >> params.dat
 
-# Switch to phase 2
+# Fasi 2
 sed -i 's/param phase := 1;/param phase := 0;/g' Bessy.mod
 
 glpsol --check -m Bessy.mod -d default.dat -d forsendur.dat -d courses.dat -d resources.dat -d Split.dat -d params.dat --wlp Bessy2.lp
@@ -33,12 +34,9 @@ cat Bessy2.sol | grep Slot | grep -v ') 0' > Split.txt
 
 python3 ChangeToRightFormatForPhases.py
 
+# Prenta lausn
+
 glpsol -m Bessy.mod -d default.dat -d forsendur.dat -d courses.dat -d resources.dat -d Split.dat -d params.dat
-
-
-
-
-
 
 
 
