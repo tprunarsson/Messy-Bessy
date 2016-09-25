@@ -6,6 +6,9 @@
 # TODO:
 
 #-----------------------------------PARAMETERS AND SETS----------------------------------------#
+# this parameter splits the runs into two phases
+param phase := 1;
+
 #number of exam days
 param n:= 11;
 
@@ -79,10 +82,12 @@ set fixslot{c in CidExam} within  ExamSlots default {};
 
 # Parameter used for semi-hard constraint, need to be big because of Law dept.
 #Tolerance for the number of common students having no free day before an exam
-param tolerance := 10; #10 works in phase 1 with 200
+param tolerance, default 10; 
+#10 works in phase 1 with 200
 
 #Tolerance for the number of common students having same day exams
-param tolerancesame := 0; #0 works in phase 1 with 200
+param tolerancesame, default 0; 
+#0 works in phase 1 with 200
 
 #-----------------------------------Decision variables----------------------------------------#
 
@@ -122,7 +127,7 @@ subject to FixCourseSlot{c in CidExam:card(fixslot[c])>0}: sum{e in fixslot[c]} 
 
 subject to ThereCanBeOnlyOne #Tharf ad tekka med requiredSlots - a ad vera e-ð annad tharna i stadinn?? Ekkert notad
 {c in CidExam}: sum{e in ExamSlots} Slot[c,e] = if (card(fixsolution[c])>0 or cidCount[c] > 200 or
-   CidCommonSum[c] >= 0 or cidIsConjoined[c] == 1 or card(RequiredSlots[c])>0 or card(fixslot[c])>0) then 1 else 0;
+   CidCommonSum[c] >= 150*phase or cidIsConjoined[c] == 1 or card(RequiredSlots[c])>0 or card(fixslot[c])>0) then 1 else 0;
 
 # c in CidExamInclude CidCommonSum[c] >= 200
 
