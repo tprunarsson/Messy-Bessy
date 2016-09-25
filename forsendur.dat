@@ -1,3 +1,5 @@
+set fixslot[MIS105F]:=1 2 3 4 5 6 7 8 9 10 11 12;
+
 set fixslot[VEL502G]:=1 2;
 set fixslot[LEF302G]:=1 2 3 4 5 6 7 8 9 10 11 12;
 set fixslot[ABF316G]:=2 4 6 8 10 12 14 16 18 20 22;
@@ -57,7 +59,7 @@ set fixslot[ISE002G] := 2 4 6 8 10 12 14 16 18;
 set fixslot[ISE309G] := 2 4 6 8 10 12 14 16 18 20 22;
 set fixslot[ISE305G] := 2 4 6 8 10 12 14 16 18 20 22;
 set fixslot[ISE102G] := 2 4 6 8 10 12 14 16 18;
-set fixslot[ISE302G] := 2 4 6 8 10 12 14 16 18 20 22;
+set fixslot[ISE302G] := 1;
 set fixslot[ISE502G] := 2 4 6 8 10 12 14 16 18 20 22;
 set fixslot[ISE103G] := 2 4 6 8 10 12 14 16 18;
 set fixslot[ISE014G] := 2 4 6 8 10 12 14 16 18;
