@@ -4,6 +4,10 @@ Bessy.mod er AMPL líkan notað fyrir röðun
 forsendur.dat eru séróskir deilda...
 
 
+# Hvernig líkanið er keyrt:
+
+Unirbúa öll gögn frá hpal: default.dat courses.dat (tpr) resources.dat (aos)
+
 # Fasi 1
 
 sed -i 's/param phase := 0;/param phase := 1;/g' Bessy.mod
@@ -12,13 +16,14 @@ glpsol --check -m Bessy.mod -d default.dat -d forsendur.dat -d courses.dat -d re
 
 nohup gurobi_cl Threads=8 ResultFile=Bessy1.sol Bessy1.lp &
 
-# now wait for many hours ;)
+## now wait for many hours ;)
 
 cat Bessy1.sol | grep Slot | grep -v ') 0' > Split.txt
 
 python3 ChangeToRightFormatForPhases.py
 
 # Stilla breytur fyrir fasa 2
+
 echo "param tolerancesame := 5;" > params.dat
 
 echo "param tolerance := 15;" >> params.dat
@@ -26,13 +31,14 @@ echo "param tolerance := 15;" >> params.dat
 echo "" >> params.dat
 
 # Fasi 2
+
 sed -i 's/param phase := 1;/param phase := 0;/g' Bessy.mod
 
 glpsol --check -m Bessy.mod -d default.dat -d forsendur.dat -d courses.dat -d resources.dat -d Split.dat -d params.dat --wlp Bessy2.lp
 
 gurobi_cl Threads=8 ResultFile=Bessy2.sol Bessy2.lp
 
-# this phase should be fast
+## this phase should be fast
 
 cat Bessy2.sol | grep Slot | grep -v ') 0' > Split.txt
 
