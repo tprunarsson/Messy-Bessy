@@ -279,7 +279,7 @@ printf : "Taka próf eftir hádegi og svo strax morguninn eftir: %.0f (%.2f%%), 
 printf {c1 in CidExam, c2 in CidExam: CidCommon[c1,c2] > 0 and c1 < c2  and cidConjoined[c1,c2] != 1 and Zseq[c1,c2] > 0.1}: "%s(%011.0f) og %s(%011.0f) = %d nem.\n", c1,CidId[c1],c2,CidId[c2],CidCommon[c1,c2];
 printf : "Þreyta próf tvo daga í röð: %.0f (%.2f%%), deildir þvinga %.0f.\n", obj3, 100*obj3/(sum{c in CidExam} cidCount[c]), obj3-obj3f;
 # printf : "Lausnin:\n";
-printf {e in ExamSlots, c in CidExam: Slot[c,e] > 0}: "%s;%011.0f;%d;%s\n", c, CidId[c], e, SlotNames[e];
+printf {e in ExamSlots, c in CidExam: Slot[c,e] > 0}: "%s;%011.0f;%d;%s\n", c, CidId[c], e, SlotNames[e] > "lausn.csv";
 
 end;
 
