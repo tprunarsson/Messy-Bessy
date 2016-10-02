@@ -86,7 +86,7 @@ param tolerance, default 10;
 #10 works in phase 1 with 200
 
 #Tolerance for the number of common students having same day exams
-param tolerancesame, default 0; 
+param tolerancesame, default 0;
 #0 works in phase 1 with 200
 
 #-----------------------------------Decision variables----------------------------------------#
@@ -143,18 +143,18 @@ subject to ConjoinedCourses
 # Semi-hard constraints 1: At some tolerance we dont want students taking more than one exam the same day
 subject to NotTheSameDay
   {c1 in CidExam, c2 in CidExam, e in Days: CidCommon[c1,c2] > tolerancesame and c1 < c2 and cidConjoined[c1,c2] != 1
-     and (card(fixslot[c1])<1 and card(fixslot[c2])<1)}:
+     and (card(fixslot[c1])!=1 and card(fixslot[c2])!=1)}:
   (Slot[c1, e] + Slot[c2, e] + Slot[c1,e+1] + Slot[c2,e+1]) <= 1;
 
 # Semi-hard version up to tolerance of taking exams in a row
 subject to NotTheSameNightSoftTolerance{c1 in CidExam, c2 in CidExam, e in Days: 1 != dayBeforeHoliday[e] and CidCommon[c1,c2] > tolerancesame and c1 < c2 and cidConjoined[c1,c2] != 1
-    and (card(fixslot[c1])<1 and card(fixslot[c2])<1)}:
+    and (card(fixslot[c1])!=1 and card(fixslot[c2])!=1)}:
      (Slot[c1, e-1] + Slot[c2, e] + Slot[c2, e-1] + Slot[c1, e]) <= 1;
 
-#Semi-hard Will tell us when a course does not have a free day before a scheduled exam
+# Semi-hard Will tell us when a course does not have a free day before a scheduled exam
 subject to RestDayBeforeTolerance
 {c1 in CidExam, c2 in CidExam, e in Days: 1 != dayBeforeHoliday[e] and e > 2 and CidCommon[c1,c2] > tolerance and cidConjoined[c1,c2] != 1 and c1 < c2
-             and (card(fixslot[c1])<1 and card(fixslot[c2])<1)}:
+             and (card(fixslot[c1])!=1 and card(fixslot[c2])!=1)}:
            Slot[c2, e-2] + Slot[c2, e-1] + Slot[c1, e] + Slot[c1, e+1] + Slot[c1, e-2] + Slot[c1, e-1] + Slot[c2, e] + Slot[c2, e+1] <= 1;
 
 

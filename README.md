@@ -1,12 +1,11 @@
-# Bessy - Beta 0.0.1 próftöfluröðun
+# Messy Bessy - Version 0.0.2 próftöfluröðun
 
 Bessy.mod er AMPL líkan notað fyrir röðun
 forsendur.dat eru séróskir deilda...
 
-
 # Hvernig líkanið er keyrt:
 
-Unirbúa öll gögn frá hpal: default.dat courses.dat (tpr) resources.dat (aos)
+Undirbúa öll gögn frá hpal: default.dat courses.dat (tpr) resources.dat (aos)
 
 # Fasi 1
 
@@ -22,7 +21,7 @@ cat Bessy1.sol | grep Slot | grep -v ') 0' > Split.txt
 
 python3 ChangeToRightFormatForPhases.py
 
-# Stilla breytur fyrir fasa 2
+# Stilla breytur fyrir fasa 2, hafa eins litlar og mögulegt er
 
 echo "param tolerancesame := 5;" > params.dat
 
@@ -47,6 +46,4 @@ python3 ChangeToRightFormatForPhases.py
 # Prenta lausn
 
 glpsol -m Bessy.mod -d default.dat -d forsendur.dat -d courses.dat -d resources.dat -d Split.dat -d params.dat
-
-
 
