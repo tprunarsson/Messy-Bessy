@@ -105,7 +105,7 @@ with open('rooms.dat','w', encoding=_wenc) as fdat:
 #Nýji Garður 14
 #*/
 
-#Part made manually..Must be made differently.
+
 
     s='set Building:='
     fdat.write(s)
