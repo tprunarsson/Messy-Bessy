@@ -166,6 +166,8 @@ subject to MaxInSlot {e in ExamSlots}: sum{c in CidExam: c not in CidMHR} Slot[c
 #The maximum number that can be assiged to computer exams per day
 subject to ComputerCap {e in ExamSlots}: sum{c in ComputerCourses} Slot[c,e]*cidCount[c] <= 173; #173
 
+subject to SpecialComputerCap {e in ExamSlots}: sum{c in ComputerCourses} Slot[c,e]*SpeCidCount[c] <= 38; 
+
 #The maximum number that can be assiged to computer exams per day
 
 subject to ComputerCapW {e in ExamSlots}: sum{c in ComputerCourses} Slot[c,e]*cidCount[c] <= w; #173
