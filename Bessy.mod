@@ -47,6 +47,9 @@ set Nurses within CidExam default {};
 
 set RequiredSlots{CidExam} default {}; #UT
 
+#Courses that require more than three hour examinations
+set TwoSlotsCourses within CidExam default {};
+
 #Total number of students for each course
 param cidCount{CidExam} default 0;
 # The long number identification for the exam
@@ -76,6 +79,9 @@ set fixsolution{CidExam} within ExamSlots default {};
 
 # Requested time slots by teachers or department
 set fixslot{c in CidExam} within  ExamSlots default {};
+
+#Requested to not be assigned to a certain slot/s by teachers or departments
+set notfix{c in CidExam} within ExamSlots default {};
 
 
 #-----------------------------------Tolerances and Parameters---------------------------------#
@@ -121,6 +127,9 @@ subject to fixme {c in CidExam, e in fixsolution[c]}: Slot[c,e] = 1;
 #Fixes the slots that may be required by the courses or departments
 subject to FixCourseSlot{c in CidExam:card(fixslot[c])>0}: sum{e in fixslot[c]} Slot[c,e] = 1;
 
+#Dont allow certain slots for a course (opposite to the FixCourseSlot} 
+#subject to DontAssign{c in CidExam: card(notfix[c])>0}: sum{e in notfix[c]} Slot[c,e]=0;
+
 
 # Hard constraint 1: One and only one of the exams may be assigned
                   #----Used 200 for common sum----#
@@ -128,6 +137,11 @@ subject to FixCourseSlot{c in CidExam:card(fixslot[c])>0}: sum{e in fixslot[c]} 
 subject to ThereCanBeOnlyOne #Tharf ad tekka med requiredSlots - a ad vera e-ð annad tharna i stadinn?? Ekkert notad
 {c in CidExam}: sum{e in ExamSlots} Slot[c,e] = if (card(fixsolution[c])>0 or cidCount[c] > 200 or
    CidCommonSum[c] >= 200*phase or cidIsConjoined[c] == 1 or card(RequiredSlots[c])>0 or card(fixslot[c])>0) then 1 else 0;
+   
+#Sometimes examinations require to be examined over the whole day. Therefore this constraint must be added such that a course that
+#required over 3 hours can be assigned to two slots
+
+#subject to WholeDay{c in CidExam, e in Days: c in TwoSlotsCourses}: Slot[c,e] = Slot[c,e+1];
 
 # c in CidExamInclude CidCommonSum[c] >= 200
 
